@@ -20,7 +20,7 @@ public:
 	void acquire()
 	{
 		unique_lock<mutex>ul(mtx);
-		cv.wait(ul, [this] {return count > 0;});
+		cv.wait(ul, [this] () {return count > 0;});
 		--count;
 	}
 	void release()
@@ -42,6 +42,8 @@ public:
 	long long int countprime(int end_number) 
 	{
 		bool flag = true;
+		if (end_number <= 1)
+			return -1;
 		for (int j = 2;j * j <= end_number;j++)
 		{
 			if (end_number % j == 0)
